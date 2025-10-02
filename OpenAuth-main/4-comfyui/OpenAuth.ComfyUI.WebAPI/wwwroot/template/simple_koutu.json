@@ -1,0 +1,37 @@
+{
+  "78": {
+    "inputs": {
+      "image": "$LoadImage$"
+    },
+    "class_type": "LoadImage",
+    "_meta": {
+      "title": "加载图像"
+    }
+  },
+  "79": {
+    "inputs": {
+      "torchscript_jit": "default",
+      "image": [
+        "78",
+        0
+      ]
+    },
+    "class_type": "InspyrenetRembg",
+    "_meta": {
+      "title": "Inspyrenet Rembg"
+    }
+  },
+  "80": {
+    "inputs": {
+      "filename_prefix": "ComfyUI",
+      "images": [
+        "79",
+        0
+      ]
+    },
+    "class_type": "SaveImage",
+    "_meta": {
+      "title": "保存图像"
+    }
+  }
+}

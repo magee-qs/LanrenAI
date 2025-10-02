@@ -1,0 +1,154 @@
+﻿<!DOCTYPE html>
+
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width" />
+    <title>@ViewBag.Title</title>
+
+    <link href="~/easyui/css/default/easyui.css" rel="stylesheet" />
+    <link href="~/easyui/css/icon.css" rel="stylesheet" />
+    <link href="~/style.css" rel="stylesheet" />
+    <link href="~/ui.css" rel="stylesheet" />
+
+    <script src="~/jquery-1.10.2.min.js"></script>
+    <script src="~/easyui/jquery.easyui.min.js"></script>
+    <script src="~/easyui/easyui-lang-zh_CN.js"></script>
+    <script src="~/validate.js"></script>
+
+    <script>
+
+        $(function () {
+            setTab()
+            SetList()
+            SetGrid()
+
+        })
+
+        function setTab() {
+            $('#tt').tabs({ border: false })
+            $('textarea').width($('#tt').width() - 60)
+            $('textarea').height($('#tt').height() - 75)
+        }
+        function SetList() {
+            var $dataGrid = $('#tables')
+            $('#tables').datalist({
+                url: '/Home/GetTableList',
+                textField: 'TableName',
+                valueField: 'TableId',
+                border: false,
+                height: $(window).height() - 145,
+                onSelect: function (index, row) {
+                    var row = $dataGrid.datagrid('getSelected')
+
+                    var $gird = $('#table')
+                    $gird.datagrid('options').queryParams = { id: row.TableId||0 }
+                    $gird.datagrid('reload')
+
+                    $('#Entity').val(row.TableName)
+                }
+            })
+        }
+
+        function SetGrid() {
+            var $grid = $('#table')
+            $grid.datagrid({
+                url: '/Home/GetColumnList',
+                method: 'post',
+                singleSelect: true,
+                queryParams: {},
+                height: 350,
+                columns: [[
+                    { field: 'ColumnId', title: 'Id', hidden: true },
+                    { field: 'ColumnName', title: '列名', width: 100 },
+                    { field: 'DataLenth', title: '长度', width: 100 },
+                    { field: 'DataPrecision', title: '精度', width: 100 },
+                    { field: 'DataType', title: '数据类型', width: 100 },
+                    { field: 'DigitalNumber', title: '小数位数', width: 100 },
+                    { field: 'ForegnKeyColumnId', title: '外键Id', hidden: true },
+                    { field: 'ForeignKeyName', title: '外键名', width: 100 },
+                    { field: 'ForeignKeyTable', title: '外键表名', width: 100 },
+                    { field: 'ForeignKeyTableId', title: '外键表Id', hidden: true },
+                    { field: 'IsForeignKey', title: '外键', width: 100 },
+                    { field: 'IsNullAble', title: '可空', width: 100 },
+                    { field: 'IsPrimeKey', title: '主键', width: 100 },
+                    { field: 'TableId', title: '名称', hidden: true },
+                    { field: 'TableName', title: '名称', hidden: true },
+                    { field: 'Description', title: '说明', width: 360 },
+                ]]
+            })
+        }
+
+        function btnCreate() {
+            var $dataGrid = $('#tables')
+            var row = $dataGrid.datagrid('getSelected')
+            if (!row) {
+                $.messager.alert('提示', '没有选择任何记录')
+                return false;
+            }
+
+            $.messager.progress();
+            $.ajax({
+                url: '/Home/Build?id=' + row.TableId,
+                data: { NameSpace: $('#NameSpace').val(), Area: $('#Area').val(), Entity: $('#Entity').val() },
+                dataType: 'json',
+                success: function (data) {
+                    $.messager.progress('close');
+                    $('#entityContent').val(data.entity)
+                    //切换到代码页
+                    $('#tt').tabs("select", 1);
+                }
+            })
+
+
+        }
+    </script>
+</head>
+<body class="easyui-layout">
+    <div data-options="region:'north'" style="height:50px">
+        <div class="title">代码生成器V1</div>
+    </div>
+    <div data-options="region:'south'" style="height:50px;"></div>
+    <div data-options="region:'west',split:true" title="数据库表" style="width:250px;">
+
+        <div id="tables">
+        </div>
+    </div>
+    <div data-options="region:'center'">
+
+        <div id="tt" style="height:100%;">
+            <div title="主页面" style="padding-top:15px; padding-left:10px; padding-right:10px;" id="mainTab">
+                <div id="table"></div>
+                <form id="form" method="post">
+                    <table class="form" style="margin-top:15px; margin-left:15px; margin-bottom:15px; margin-right:15px;">
+                        <tr>
+                            <td class="formTitle" width="100">二级命名空间</td>
+                            <td class="formValue" width="180">
+                                <input type="text" id="Area" name="Area" class="easyui-validatebox" data-options="required:true,validType:'NotNull'" value="OpenAuth.SYS" />
+                            </td>
+                        </tr>
+                        <tr>
+                            <td class="formTitle" width="100">实体类名</td>
+                            <td class="formValue" width="180">
+                                <input type="text" id="Entity" name="Entity" class="easyui-validatebox" data-options="required:true,validType:'NotNull'" value="Entity" />
+                            </td>
+                        </tr>
+                        <tr>
+                            <td class="formTitle" colspan="2" style="text-align:center">
+                                <button type="button" class="btn btn-primary btn-sm" onclick="btnCreate()">生成代码</button>
+                            </td>
+                        </tr>
+                    </table>
+                </form>
+            </div>
+            <div style="padding:15px;width:100%; height:100%;" id="entity" title="实体类">
+                <textarea id="entityContent"></textarea>
+            </div>
+
+
+        </div>
+
+
+    </div>
+</body>
+</html>

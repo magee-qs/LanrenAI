@@ -1,0 +1,13 @@
+{
+    "name": "uni-config-center",
+    "version": "0.0.2",
+    "description": "配置中心",
+    "main": "index.js",
+    "keywords": [],
+    "author": "DCloud",
+    "license": "Apache-2.0",
+    "origin-plugin-dev-name": "uni-list-news-title",
+    "origin-plugin-version": "0.0.10",
+    "plugin-dev-name": "uni-list-news-title",
+    "plugin-version": "0.0.10"
+}

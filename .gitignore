@@ -1,0 +1,41 @@
+# Build outputs
+[Bb]in/
+[Oo]bj/
+
+# Visual Studio files
+.vs/
+*.user
+*.suo
+
+# NuGet packages
+*.nupkg
+**/[Pp]ackages/*
+
+# ASP.NET Core 
+appsettings.json
+
+# Runtime and logs
+logs/
+*.log
+
+# IDE files
+.idea/
+*.swp
+*.swo
+
+# macOS
+.DS_Store
+
+# VS Code
+.vscode/
+
+#publish
+publish/
+
+#doc
+doc/
+
+#hbuilder
+.hbuilder/
+uniapp-vue2-admin/*/config.js
+OpenAuth-main/*/appsettings.json

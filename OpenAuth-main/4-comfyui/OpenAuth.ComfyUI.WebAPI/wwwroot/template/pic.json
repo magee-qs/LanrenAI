@@ -1,0 +1,196 @@
+{
+  "11": {
+    "inputs": {
+      "image": "$LoadImage&"
+    },
+    "class_type": "LoadImage",
+    "_meta": {
+      "title": "加载图像"
+    }
+  },
+  "12": {
+    "inputs": {
+      "scale": 1,
+      "start_at": 0,
+      "end_at": 10000,
+      "model": [
+        "13",
+        0
+      ],
+      "vae": [
+        "20",
+        0
+      ],
+      "image": [
+        "11",
+        0
+      ],
+      "mask": [
+        "42",
+        0
+      ],
+      "brushnet": [
+        "17",
+        0
+      ],
+      "positive": [
+        "18",
+        0
+      ],
+      "negative": [
+        "19",
+        0
+      ]
+    },
+    "class_type": "BrushNet",
+    "_meta": {
+      "title": "BrushNet"
+    }
+  },
+  "13": {
+    "inputs": {
+      "ckpt_name": "1.5写实/majicMIX realistic 麦橘写实_v7.safetensors"
+    },
+    "class_type": "CheckpointLoaderSimple",
+    "_meta": {
+      "title": "Checkpoint加载器(简易)"
+    }
+  },
+  "17": {
+    "inputs": {
+      "brushnet": "brushnet/random_mask_brushnet_ckpt/diffusion_pytorch_model.safetensors",
+      "dtype": "float16"
+    },
+    "class_type": "BrushNetLoader",
+    "_meta": {
+      "title": "BrushNet加载器"
+    }
+  },
+  "18": {
+    "inputs": {
+      "text": "best quality, masterpiece, highres, original,$keyword$",
+      "speak_and_recognation": true,
+      "clip": [
+        "13",
+        1
+      ]
+    },
+    "class_type": "CLIPTextEncode",
+    "_meta": {
+      "title": "关键字"
+    }
+  },
+  "19": {
+    "inputs": {
+      "text": "(worst quality:2),(low quality:2),(normal quality:2),lowres,normal quality,((monochrome)),((grayscale)),skin spots,acnes,skin blemishes,age spot,(ugly:1.331),(duplicate:1.331),(morbid:1.21),(mutilated:1.21),(tranny:1.331),mutated hands,(poorly drawn hands:1.5),blurry,(bad anatomy:1.21),(bad proportions:1.331),extra limbs,(disfigured:1.331),(missing arms:1.331),(extra legs:1.331),(fused fingers:1.61051),(too many fingers:1.61051),(unclear eyes:1.331),lowers,bad hands,missing fingers,extra digit,bad hands,missing fingers,(((extra arms and legs))),ng_deepnegative_v1_75t,easynegative,negative_hand-neg,$negtive$",
+      "speak_and_recognation": true,
+      "clip": [
+        "13",
+        1
+      ]
+    },
+    "class_type": "CLIPTextEncode",
+    "_meta": {
+      "title": "负面词"
+    }
+  },
+  "20": {
+    "inputs": {
+      "vae_name": "vae-ft-mse-840000-ema-pruned.safetensors"
+    },
+    "class_type": "VAELoader",
+    "_meta": {
+      "title": "VAE加载器"
+    }
+  },
+  "21": {
+    "inputs": {
+      "seed": 0,
+      "steps": 20,
+      "cfg": 2,
+      "sampler_name": "euler",
+      "scheduler": "normal",
+      "denoise": 1,
+      "model": [
+        "12",
+        0
+      ],
+      "positive": [
+        "12",
+        1
+      ],
+      "negative": [
+        "12",
+        2
+      ],
+      "latent_image": [
+        "12",
+        3
+      ]
+    },
+    "class_type": "KSampler",
+    "_meta": {
+      "title": "K采样器"
+    }
+  },
+  "22": {
+    "inputs": {
+      "samples": [
+        "21",
+        0
+      ],
+      "vae": [
+        "20",
+        0
+      ]
+    },
+    "class_type": "VAEDecode",
+    "_meta": {
+      "title": "VAE解码"
+    }
+  },
+  "25": {
+    "inputs": {
+      "control_net_name": "control_v11f1p_sd15_depth_fp16.safetensors"
+    },
+    "class_type": "ControlNetLoader",
+    "_meta": {
+      "title": "ControlNet加载器"
+    }
+  },
+  "28": {
+    "inputs": {
+      "filename_prefix": "ComfyUI",
+      "images": [
+        "22",
+        0
+      ]
+    },
+    "class_type": "SaveImage",
+    "_meta": {
+      "title": "保存图像"
+    }
+  },
+  "41": {
+    "inputs": {
+      "image": "$LoadMask$"
+    },
+    "class_type": "LoadImage",
+    "_meta": {
+      "title": "加载遮罩"
+    }
+  },
+  "42": {
+    "inputs": {
+      "channel": "red",
+      "image": [
+        "41",
+        0
+      ]
+    },
+    "class_type": "ImageToMask",
+    "_meta": {
+      "title": "图像到遮罩"
+    }
+  }
+}

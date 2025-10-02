@@ -1,0 +1,5 @@
+﻿.form{} 
+.form .formTitle { text-align: right;  padding-right: 10px;  padding-top: 4px;  padding-bottom: 4px;  width:100px; }
+.form .formTitle font{ color:red; }
+.form .formValue{ text-align:left; padding-top:4px ; padding-bottom:4px;   }
+.form .formValue input{ width:100%; }

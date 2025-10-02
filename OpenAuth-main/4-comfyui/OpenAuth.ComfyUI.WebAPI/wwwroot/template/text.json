@@ -1,0 +1,134 @@
+{
+  "1": {
+    "inputs": {
+      "seed": 0,
+      "steps": 25,
+      "cfg": 4.6000000000000005,
+      "sampler_name": "euler",
+      "scheduler": "karras",
+      "denoise": 1,
+      "model": [
+        "8",
+        0
+      ],
+      "positive": [
+        "6",
+        0
+      ],
+      "negative": [
+        "7",
+        0
+      ],
+      "latent_image": [
+        "9",
+        0
+      ]
+    },
+    "class_type": "KSampler",
+    "_meta": {
+      "title": "K采样器"
+    }
+  },
+  "2": {
+    "inputs": {
+      "chatglm3_checkpoint": "chatglm3-8bit.safetensors"
+    },
+    "class_type": "MZ_ChatGLM3Loader",
+    "_meta": {
+      "title": "ChatGLM3加载器"
+    }
+  },
+  "5": {
+    "inputs": {
+      "vae_name": "kolorsVAE_fp16Safetensors.safetensors"
+    },
+    "class_type": "VAELoader",
+    "_meta": {
+      "title": "VAE加载器"
+    }
+  },
+  "6": {
+    "inputs": {
+      "text": "$positive$",
+      "speak_and_recognation": true,
+      "chatglm3_model": [
+        "2",
+        0
+      ],
+      "hid_proj": [
+        "8",
+        1
+      ]
+    },
+    "class_type": "MZ_ChatGLM3",
+    "_meta": {
+      "title": "MinusZone - ChatGLM3TextEncode"
+    }
+  },
+  "7": {
+    "inputs": {
+      "text": "nsfw，糟糕的，质量差，错误的动作,$negtive$",
+      "speak_and_recognation": true,
+      "chatglm3_model": [
+        "2",
+        0
+      ],
+      "hid_proj": [
+        "8",
+        1
+      ]
+    },
+    "class_type": "MZ_ChatGLM3",
+    "_meta": {
+      "title": "MinusZone - ChatGLM3TextEncode"
+    }
+  },
+  "8": {
+    "inputs": {
+      "unet_name": "kolors/diffusion_pytorch_model.fp16.safetensors"
+    },
+    "class_type": "MZ_KolorsUNETLoader",
+    "_meta": {
+      "title": "MinusZone - Kolors UNET Loader"
+    }
+  },
+  "9": {
+    "inputs": {
+      "width":  "$width$",
+      "height": "$height$",
+      "batch_size": "$batchSize$"
+    },
+    "class_type": "EmptyLatentImage",
+    "_meta": {
+      "title": "空Latent"
+    }
+  },
+  "10": {
+    "inputs": {
+      "samples": [
+        "1",
+        0
+      ],
+      "vae": [
+        "5",
+        0
+      ]
+    },
+    "class_type": "VAEDecode",
+    "_meta": {
+      "title": "VAE解码"
+    }
+  },
+  "11": {
+    "inputs": {
+      "images": [
+        "10",
+        0
+      ]
+    },
+    "class_type": "PreviewImage",
+    "_meta": {
+      "title": "预览图像"
+    }
+  }
+}

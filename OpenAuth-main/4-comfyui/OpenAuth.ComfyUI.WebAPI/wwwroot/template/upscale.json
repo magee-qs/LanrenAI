@@ -1,0 +1,114 @@
+{
+  "2x": {
+    "1": {
+      "inputs": {
+        "image": "$LoadImage$"
+      },
+      "class_type": "LoadImage",
+      "_meta": {
+        "title": "加载图像"
+      }
+    },
+    "4": {
+      "inputs": {
+        "upscale_model": [
+          "5",
+          0
+        ],
+        "image": [
+          "1",
+          0
+        ]
+      },
+      "class_type": "ImageUpscaleWithModel",
+      "_meta": {
+        "title": "图像通过模型放大"
+      }
+    },
+    "5": {
+      "inputs": {
+        "model_name": "4x-UltraSharp.pth"
+      },
+      "class_type": "UpscaleModelLoader",
+      "_meta": {
+        "title": "放大模型加载器"
+      }
+    },
+    "22": {
+      "inputs": {
+        "upscale_method": "nearest-exact",
+        "scale_by": 0.5000000000000001,
+        "image": [
+          "4",
+          0
+        ]
+      },
+      "class_type": "ImageScaleBy",
+      "_meta": {
+        "title": "图像按系数缩放"
+      }
+    },
+    "23": {
+      "inputs": {
+        "filename_prefix": "ComfyUI",
+        "images": [
+          "22",
+          0
+        ]
+      },
+      "class_type": "SaveImage",
+      "_meta": {
+        "title": "保存图像"
+      }
+    }
+  },
+  "4x": {
+    "1": {
+      "inputs": {
+        "image": "$LoadImage$"
+      },
+      "class_type": "LoadImage",
+      "_meta": {
+        "title": "加载图像"
+      }
+    },
+    "4": {
+      "inputs": {
+        "upscale_model": [
+          "5",
+          0
+        ],
+        "image": [
+          "1",
+          0
+        ]
+      },
+      "class_type": "ImageUpscaleWithModel",
+      "_meta": {
+        "title": "图像通过模型放大"
+      }
+    },
+    "5": {
+      "inputs": {
+        "model_name": "4x-UltraSharp.pth"
+      },
+      "class_type": "UpscaleModelLoader",
+      "_meta": {
+        "title": "放大模型加载器"
+      }
+    },
+    "23": {
+      "inputs": {
+        "filename_prefix": "ComfyUI",
+        "images": [
+          "4",
+          0
+        ]
+      },
+      "class_type": "SaveImage",
+      "_meta": {
+        "title": "保存图像"
+      }
+    }
+  }
+}

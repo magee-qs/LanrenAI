@@ -1,0 +1,368 @@
+{
+  "4": {
+    "inputs": {
+      "ckpt_name": "SDXL写实/dreamshaperXL_alpha2Xl10.safetensors"
+    },
+    "class_type": "CheckpointLoaderSimple",
+    "_meta": {
+      "title": "Checkpoint加载器(简易)"
+    }
+  },
+  "10": {
+    "inputs": {
+      "stop_at_clip_layer": -2,
+      "clip": [
+        "4",
+        1
+      ]
+    },
+    "class_type": "CLIPSetLastLayer",
+    "_meta": {
+      "title": "CLIP设置停止层"
+    }
+  },
+  "12": {
+    "inputs": {
+      "text": "corporate branding style, clean, modern, sleek, minimalist, business-oriented, retail packaging style, vibrant, enticing, commercial, product-focused, eye-catching, professional, highly detailed, luxury product style, elegant, sophisticated, high-end, luxurious, product photography, advertising poster style\n\n",
+      "strength": 1,
+      "add_weight": 0,
+      "speak_and_recognation": true,
+      "clip": [
+        "10",
+        0
+      ]
+    },
+    "class_type": "CLIPTextEncodeWithWeight //Inspire",
+    "_meta": {
+      "title": "CLIP文本编码(权重)"
+    }
+  },
+  "13": {
+    "inputs": {
+      "text": "grungy, cluttered, disorganized, noisy, blurry, amateurish, sloppy, unattractive, cheap",
+      "strength": 1,
+      "add_weight": 0,
+      "speak_and_recognation": true,
+      "clip": [
+        "10",
+        0
+      ]
+    },
+    "class_type": "CLIPTextEncodeWithWeight //Inspire",
+    "_meta": {
+      "title": "CLIP文本编码(权重)"
+    }
+  },
+  "75": {
+    "inputs": {
+      "seed": 498766434953669,
+      "steps": 5,
+      "cfg": 2,
+      "sampler_name": "dpmpp_sde",
+      "scheduler": "karras",
+      "denoise": 1,
+      "model": [
+        "95",
+        0
+      ],
+      "positive": [
+        "80",
+        0
+      ],
+      "negative": [
+        "80",
+        1
+      ],
+      "latent_image": [
+        "138",
+        0
+      ]
+    },
+    "class_type": "KSampler",
+    "_meta": {
+      "title": "K采样器"
+    }
+  },
+  "76": {
+    "inputs": {
+      "samples": [
+        "75",
+        0
+      ],
+      "vae": [
+        "4",
+        2
+      ]
+    },
+    "class_type": "VAEDecode",
+    "_meta": {
+      "title": "VAE解码"
+    }
+  },
+  "79": {
+    "inputs": {
+      "strength": 0.7000000000000001,
+      "start_percent": 0,
+      "end_percent": 0.7000000000000001,
+      "positive": [
+        "12",
+        0
+      ],
+      "negative": [
+        "13",
+        0
+      ],
+      "control_net": [
+        "82",
+        0
+      ],
+      "image": [
+        "171",
+        0
+      ]
+    },
+    "class_type": "ControlNetApplyAdvanced",
+    "_meta": {
+      "title": "ControlNet应用（旧版高级）"
+    }
+  },
+  "80": {
+    "inputs": {
+      "strength": 0.7000000000000001,
+      "start_percent": 0,
+      "end_percent": 0.7000000000000001,
+      "positive": [
+        "79",
+        0
+      ],
+      "negative": [
+        "79",
+        1
+      ],
+      "control_net": [
+        "81",
+        0
+      ],
+      "image": [
+        "170",
+        0
+      ]
+    },
+    "class_type": "ControlNetApplyAdvanced",
+    "_meta": {
+      "title": "ControlNet应用（旧版高级）"
+    }
+  },
+  "81": {
+    "inputs": {
+      "control_net_name": "sai_xl_depth_256lora.safetensors"
+    },
+    "class_type": "ControlNetLoader",
+    "_meta": {
+      "title": "ControlNet加载器"
+    }
+  },
+  "82": {
+    "inputs": {
+      "control_net_name": "sai_xl_depth_256lora.safetensors"
+    },
+    "class_type": "ControlNetLoader",
+    "_meta": {
+      "title": "ControlNet加载器"
+    }
+  },
+  "84": {
+    "inputs": {
+      "image": [
+        "166",
+        0
+      ]
+    },
+    "class_type": "easy imageSize",
+    "_meta": {
+      "title": "图像尺寸"
+    }
+  },
+  "95": {
+    "inputs": {
+      "weight": 0.7000000000000001,
+      "weight_type": "linear",
+      "combine_embeds": "concat",
+      "start_at": 0,
+      "end_at": 0.7000000000000001,
+      "embeds_scaling": "V only",
+      "model": [
+        "96",
+        0
+      ],
+      "ipadapter": [
+        "96",
+        1
+      ],
+      "image": [
+        "166",
+        0
+      ],
+      "image_negative": [
+        "110",
+        0
+      ]
+    },
+    "class_type": "IPAdapterAdvanced",
+    "_meta": {
+      "title": "应用IPAdapter（高级）"
+    }
+  },
+  "96": {
+    "inputs": {
+      "preset": "PLUS (high strength)",
+      "model": [
+        "4",
+        0
+      ]
+    },
+    "class_type": "IPAdapterUnifiedLoader",
+    "_meta": {
+      "title": "IPAdapter加载器"
+    }
+  },
+  "110": {
+    "inputs": {
+      "type": "fade",
+      "strength": 0.7000000000000001,
+      "blur": 5,
+      "image_optional": [
+        "166",
+        0
+      ]
+    },
+    "class_type": "IPAdapterNoise",
+    "_meta": {
+      "title": "IPAdapter噪波"
+    }
+  },
+  "131": {
+    "inputs": {
+      "pixels": [
+        "166",
+        0
+      ],
+      "vae": [
+        "4",
+        2
+      ]
+    },
+    "class_type": "VAEEncode",
+    "_meta": {
+      "title": "VAE编码"
+    }
+  },
+  "138": {
+    "inputs": {
+      "batch_size": "$batchSize$",
+      "latent": [
+        "131",
+        0
+      ]
+    },
+    "class_type": "CR Latent Batch Size",
+    "_meta": {
+      "title": "Latent批次大小"
+    }
+  },
+  "166": {
+    "inputs": {
+      "image": "$LoadImage$"
+    },
+    "class_type": "LoadImage",
+    "_meta": {
+      "title": "加载图像"
+    }
+  },
+  "170": {
+    "inputs": {
+      "ckpt_name": "depth_anything_vitl14.pth",
+      "resolution": [
+        "84",
+        0
+      ],
+      "image": [
+        "166",
+        0
+      ]
+    },
+    "class_type": "DepthAnythingPreprocessor",
+    "_meta": {
+      "title": "DepthAnything深度预处理器"
+    }
+  },
+  "171": {
+    "inputs": {
+      "coarse": "disable",
+      "resolution": [
+        "84",
+        0
+      ],
+      "image": [
+        "166",
+        0
+      ]
+    },
+    "class_type": "LineArtPreprocessor",
+    "_meta": {
+      "title": "LineArt艺术线预处理器"
+    }
+  },
+  "173": {
+    "inputs": {
+      "low_threshold": 39,
+      "high_threshold": 200,
+      "resolution": 512
+    },
+    "class_type": "CannyEdgePreprocessor",
+    "_meta": {
+      "title": "Canny细致线预处理器"
+    }
+  },
+  "174": {
+    "inputs": {
+      "strength": 1,
+      "start_percent": 0,
+      "end_percent": 1,
+      "control_net": [
+        "175",
+        0
+      ],
+      "image": [
+        "173",
+        0
+      ]
+    },
+    "class_type": "ControlNetApplyAdvanced",
+    "_meta": {
+      "title": "ControlNet应用（旧版高级）"
+    }
+  },
+  "175": {
+    "inputs": {
+      "control_net_name": "sai_xl_canny_256lora"
+    },
+    "class_type": "ControlNetLoader",
+    "_meta": {
+      "title": "ControlNet加载器"
+    }
+  },
+  "178": {
+    "inputs": {
+      "filename_prefix": "ComfyUI",
+      "images": [
+        "76",
+        0
+      ]
+    },
+    "class_type": "SaveImage",
+    "_meta": {
+      "title": "保存图像"
+    }
+  }
+}

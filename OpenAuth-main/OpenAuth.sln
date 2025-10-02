@@ -1,0 +1,69 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.13.35931.197
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "1-src", "1-src", "{02EA681E-C7D8-13C7-8484-4AC65E1B71E8}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "2-generator", "2-generator", "{387215A1-422E-4085-A8DB-AFBAE1A1D1E8}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "3-application", "3-application", "{25681134-C7C7-4439-8B8E-2960ED2FB763}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "4-comfyui", "4-comfyui", "{1B1A6467-A658-4645-9FD9-CC1A203F5DEA}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "OpenAuth.Infrastructure", "1-src\OpenAuth.Infrastructure\OpenAuth.Infrastructure.csproj", "{6B72F99F-C453-4648-A6BF-9E6930B4021D}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "OpenAuth.ComfyUI", "4-comfyui\OpenAuth.ComfyUI\OpenAuth.ComfyUI.csproj", "{04A5A8A7-33D1-4050-A77D-B76D43992522}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "OpenAuth.Repository", "1-src\OpenAuth.Repository\OpenAuth.Repository.csproj", "{0CF95CA4-BCD2-4CD9-B515-C5DFE549C8B2}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "OpenAuth.Generator", "2-generator\OpenAuth.Generator\OpenAuth.Generator.csproj", "{6EF5AC1D-E016-1182-9113-05B5F3DC40C6}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{5C0DF2EB-6A94-4386-A793-AF61045CFF8D}"
+	ProjectSection(SolutionItems) = preProject
+		.editorconfig = .editorconfig
+	EndProjectSection
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "OpenAuth.ComfyUI.WebAPI", "4-comfyui\OpenAuth.ComfyUI.WebAPI\OpenAuth.ComfyUI.WebAPI.csproj", "{918C0B79-F361-4738-9DC6-D43427852263}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{6B72F99F-C453-4648-A6BF-9E6930B4021D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{6B72F99F-C453-4648-A6BF-9E6930B4021D}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{6B72F99F-C453-4648-A6BF-9E6930B4021D}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{6B72F99F-C453-4648-A6BF-9E6930B4021D}.Release|Any CPU.Build.0 = Release|Any CPU
+		{04A5A8A7-33D1-4050-A77D-B76D43992522}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{04A5A8A7-33D1-4050-A77D-B76D43992522}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{04A5A8A7-33D1-4050-A77D-B76D43992522}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{04A5A8A7-33D1-4050-A77D-B76D43992522}.Release|Any CPU.Build.0 = Release|Any CPU
+		{0CF95CA4-BCD2-4CD9-B515-C5DFE549C8B2}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{0CF95CA4-BCD2-4CD9-B515-C5DFE549C8B2}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{0CF95CA4-BCD2-4CD9-B515-C5DFE549C8B2}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{0CF95CA4-BCD2-4CD9-B515-C5DFE549C8B2}.Release|Any CPU.Build.0 = Release|Any CPU
+		{6EF5AC1D-E016-1182-9113-05B5F3DC40C6}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{6EF5AC1D-E016-1182-9113-05B5F3DC40C6}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{6EF5AC1D-E016-1182-9113-05B5F3DC40C6}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{6EF5AC1D-E016-1182-9113-05B5F3DC40C6}.Release|Any CPU.Build.0 = Release|Any CPU
+		{918C0B79-F361-4738-9DC6-D43427852263}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{918C0B79-F361-4738-9DC6-D43427852263}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{918C0B79-F361-4738-9DC6-D43427852263}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{918C0B79-F361-4738-9DC6-D43427852263}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{6B72F99F-C453-4648-A6BF-9E6930B4021D} = {02EA681E-C7D8-13C7-8484-4AC65E1B71E8}
+		{04A5A8A7-33D1-4050-A77D-B76D43992522} = {1B1A6467-A658-4645-9FD9-CC1A203F5DEA}
+		{0CF95CA4-BCD2-4CD9-B515-C5DFE549C8B2} = {02EA681E-C7D8-13C7-8484-4AC65E1B71E8}
+		{6EF5AC1D-E016-1182-9113-05B5F3DC40C6} = {387215A1-422E-4085-A8DB-AFBAE1A1D1E8}
+		{918C0B79-F361-4738-9DC6-D43427852263} = {1B1A6467-A658-4645-9FD9-CC1A203F5DEA}
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {9E3D518D-0DCA-4676-9B98-28AF7E998015}
+	EndGlobalSection
+EndGlobal

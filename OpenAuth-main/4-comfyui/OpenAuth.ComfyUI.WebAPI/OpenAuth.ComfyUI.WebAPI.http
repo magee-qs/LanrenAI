@@ -1,0 +1,6 @@
+@OpenAuth.ComfyUI.WebAPI_HostAddress = http://localhost:15111
+
+GET {{OpenAuth.ComfyUI.WebAPI_HostAddress}}/weatherforecast/
+Accept: application/json
+
+###

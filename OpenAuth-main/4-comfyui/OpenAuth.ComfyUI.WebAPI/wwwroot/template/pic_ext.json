@@ -1,0 +1,231 @@
+{
+  "23": {
+    "inputs": {
+      "image": "$LoadImage$"
+    },
+    "class_type": "LoadImage",
+    "_meta": {
+      "title": "加载图像"
+    }
+  },
+  "25": {
+    "inputs": {
+      "width": 1024,
+      "height": 1024,
+      "interpolation": "nearest",
+      "method": "keep proportion",
+      "condition": "always",
+      "multiple_of": 0,
+      "image": [
+        "23",
+        0
+      ]
+    },
+    "class_type": "ImageResize+",
+    "_meta": {
+      "title": "图像缩放"
+    }
+  },
+  "27": {
+    "inputs": {
+      "left": "$left$",
+      "top": "$top$",
+      "right": "$right$",
+      "bottom": "$buttom$",
+      "feathering": "$edge$",
+      "image": [
+        "25",
+        0
+      ]
+    },
+    "class_type": "ImagePadForOutpaint",
+    "_meta": {
+      "title": "外补画板"
+    }
+  },
+  "29": {
+    "inputs": {
+      "clip_name1": "clip_l.safetensors",
+      "clip_name2": "t5xxl_fp8_e4m3fn.safetensors",
+      "type": "flux",
+      "device": "default"
+    },
+    "class_type": "DualCLIPLoader",
+    "_meta": {
+      "title": "双CLIP加载器"
+    }
+  },
+  "30": {
+    "inputs": {
+      "text": "",
+      "speak_and_recognation": true,
+      "clip": [
+        "29",
+        0
+      ]
+    },
+    "class_type": "CLIPTextEncode",
+    "_meta": {
+      "title": "CLIP文本编码器"
+    }
+  },
+  "31": {
+    "inputs": {
+      "text": "",
+      "speak_and_recognation": true,
+      "clip": [
+        "29",
+        0
+      ]
+    },
+    "class_type": "CLIPTextEncode",
+    "_meta": {
+      "title": "CLIP文本编码器"
+    }
+  },
+  "32": {
+    "inputs": {
+      "guidance": 3.5,
+      "conditioning": [
+        "30",
+        0
+      ]
+    },
+    "class_type": "FluxGuidance",
+    "_meta": {
+      "title": "Flux引导"
+    }
+  },
+  "33": {
+    "inputs": {
+      "noise_mask": false,
+      "positive": [
+        "32",
+        0
+      ],
+      "negative": [
+        "31",
+        0
+      ],
+      "vae": [
+        "38",
+        0
+      ],
+      "pixels": [
+        "27",
+        0
+      ],
+      "mask": [
+        "27",
+        1
+      ]
+    },
+    "class_type": "InpaintModelConditioning",
+    "_meta": {
+      "title": "内补模型条件"
+    }
+  },
+  "34": {
+    "inputs": {
+      "seed": 0,
+      "steps": 20,
+      "cfg": 1,
+      "sampler_name": "euler",
+      "scheduler": "normal",
+      "denoise": 1,
+      "model": [
+        "35",
+        0
+      ],
+      "positive": [
+        "33",
+        0
+      ],
+      "negative": [
+        "33",
+        1
+      ],
+      "latent_image": [
+        "43",
+        0
+      ]
+    },
+    "class_type": "KSampler",
+    "_meta": {
+      "title": "K采样器"
+    }
+  },
+  "35": {
+    "inputs": {
+      "model": [
+        "36",
+        0
+      ]
+    },
+    "class_type": "DifferentialDiffusion",
+    "_meta": {
+      "title": "差异扩散"
+    }
+  },
+  "36": {
+    "inputs": {
+      "unet_name": "CN_FLUX/flux1-fill-dev.safetensors",
+      "weight_dtype": "fp8_e4m3fn"
+    },
+    "class_type": "UNETLoader",
+    "_meta": {
+      "title": "UNET加载器"
+    }
+  },
+  "37": {
+    "inputs": {
+      "samples": [
+        "34",
+        0
+      ],
+      "vae": [
+        "38",
+        0
+      ]
+    },
+    "class_type": "VAEDecode",
+    "_meta": {
+      "title": "VAE解码"
+    }
+  },
+  "38": {
+    "inputs": {
+      "vae_name": "flux-ae.sft"
+    },
+    "class_type": "VAELoader",
+    "_meta": {
+      "title": "VAE加载器"
+    }
+  },
+  "39": {
+    "inputs": {
+      "filename_prefix": "ComfyUI",
+      "images": [
+        "37",
+        0
+      ]
+    },
+    "class_type": "SaveImage",
+    "_meta": {
+      "title": "保存图像"
+    }
+  },
+  "43": {
+    "inputs": {
+      "amount": "$batchSize$",
+      "samples": [
+        "33",
+        2
+      ]
+    },
+    "class_type": "RepeatLatentBatch",
+    "_meta": {
+      "title": "复制Latent批次"
+    }
+  }
+}

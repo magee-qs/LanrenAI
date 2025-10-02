@@ -1,0 +1,278 @@
+{
+  "47": {
+    "inputs": {
+      "ckpt_name": "1.5写实/realisticVisionV60B1_v60B1VAE.safetensors"
+    },
+    "class_type": "CheckpointLoaderSimple",
+    "_meta": {
+      "title": "Checkpoint加载器(简易)"
+    }
+  },
+  "48": {
+    "inputs": {
+      "text": "best quality, masterpiece,$keyword$",
+      "speak_and_recognation": true,
+      "clip": [
+        "47",
+        1
+      ]
+    },
+    "class_type": "CLIPTextEncode",
+    "_meta": {
+      "title": "CLIP文本编码器"
+    }
+  },
+  "49": {
+    "inputs": {
+      "text": "embedding:EasyNegative,$negative$",
+      "speak_and_recognation": true,
+      "clip": [
+        "47",
+        1
+      ]
+    },
+    "class_type": "CLIPTextEncode",
+    "_meta": {
+      "title": "CLIP文本编码器"
+    }
+  },
+  "50": {
+    "inputs": {
+      "image": "$LoadImage$"
+    },
+    "class_type": "LoadImage",
+    "_meta": {
+      "title": "加载图像"
+    }
+  },
+  "52": {
+    "inputs": {
+      "width": 1024,
+      "height": 1024,
+      "interpolation": "nearest",
+      "method": "keep proportion",
+      "condition": "always",
+      "multiple_of": 0,
+      "image": [
+        "50",
+        0
+      ]
+    },
+    "class_type": "ImageResize+",
+    "_meta": {
+      "title": "图像缩放"
+    }
+  },
+  "55": {
+    "inputs": {
+      "model_name": "sam_vit_h (2.56GB)"
+    },
+    "class_type": "SAMModelLoader (segment anything)",
+    "_meta": {
+      "title": "SAM模型加载器"
+    }
+  },
+  "56": {
+    "inputs": {
+      "model_name": "GroundingDINO_SwinT_OGC (694MB)"
+    },
+    "class_type": "GroundingDinoModelLoader (segment anything)",
+    "_meta": {
+      "title": "G-Dino模型加载器"
+    }
+  },
+  "57": {
+    "inputs": {
+      "prompt": "$prodName$",
+      "threshold": 0.3,
+      "sam_model": [
+        "55",
+        0
+      ],
+      "grounding_dino_model": [
+        "56",
+        0
+      ],
+      "image": [
+        "52",
+        0
+      ]
+    },
+    "class_type": "GroundingDinoSAMSegment (segment anything)",
+    "_meta": {
+      "title": "G-DinoSAM语义分割"
+    }
+  },
+  "61": {
+    "inputs": {
+      "scale": 1,
+      "start_at": 0,
+      "end_at": 10000,
+      "model": [
+        "47",
+        0
+      ],
+      "vae": [
+        "47",
+        2
+      ],
+      "image": [
+        "52",
+        0
+      ],
+      "mask": [
+        "63",
+        0
+      ],
+      "brushnet": [
+        "68",
+        0
+      ],
+      "positive": [
+        "48",
+        0
+      ],
+      "negative": [
+        "49",
+        0
+      ]
+    },
+    "class_type": "BrushNet",
+    "_meta": {
+      "title": "BrushNet"
+    }
+  },
+  "63": {
+    "inputs": {
+      "mask": [
+        "57",
+        1
+      ]
+    },
+    "class_type": "InvertMask",
+    "_meta": {
+      "title": "遮罩反转"
+    }
+  },
+  "64": {
+    "inputs": {
+      "seed": 472071696124568,
+      "steps": 30,
+      "cfg": 7,
+      "sampler_name": "dpmpp_2m",
+      "scheduler": "karras",
+      "denoise": 1,
+      "model": [
+        "61",
+        0
+      ],
+      "positive": [
+        "61",
+        1
+      ],
+      "negative": [
+        "61",
+        2
+      ],
+      "latent_image": [
+        "75",
+        0
+      ]
+    },
+    "class_type": "KSampler",
+    "_meta": {
+      "title": "K采样器"
+    }
+  },
+  "65": {
+    "inputs": {
+      "samples": [
+        "64",
+        0
+      ],
+      "vae": [
+        "47",
+        2
+      ]
+    },
+    "class_type": "VAEDecode",
+    "_meta": {
+      "title": "VAE解码"
+    }
+  },
+  "68": {
+    "inputs": {
+      "brushnet": "brushnet/segmentation_mask_brushnet_ckpt/diffusion_pytorch_model.safetensors",
+      "dtype": "float16"
+    },
+    "class_type": "BrushNetLoader",
+    "_meta": {
+      "title": "BrushNet加载器"
+    }
+  },
+  "71": {
+    "inputs": {
+      "upscale_method": "nearest-exact",
+      "scale_by": 1.5000000000000002,
+      "image": [
+        "65",
+        0
+      ]
+    },
+    "class_type": "ImageScaleBy",
+    "_meta": {
+      "title": "图像按系数缩放"
+    }
+  },
+  "72": {
+    "inputs": {
+      "upscale_model": [
+        "73",
+        0
+      ],
+      "image": [
+        "71",
+        0
+      ]
+    },
+    "class_type": "ImageUpscaleWithModel",
+    "_meta": {
+      "title": "图像通过模型放大"
+    }
+  },
+  "73": {
+    "inputs": {
+      "model_name": "4x-UltraSharp.pth"
+    },
+    "class_type": "UpscaleModelLoader",
+    "_meta": {
+      "title": "放大模型加载器"
+    }
+  },
+  "74": {
+    "inputs": {
+      "filename_prefix": "ComfyUI",
+      "images": [
+        "71",
+        0
+      ]
+    },
+    "class_type": "SaveImage",
+    "_meta": {
+      "title": "保存图像"
+    }
+  },
+  "75": {
+    "inputs": {
+      "batch_size": $batchSize$,
+      "latent": [
+        "61",
+        3
+      ]
+    },
+    "class_type": "CR Latent Batch Size",
+    "_meta": {
+      "title": "Latent批次大小"
+    }
+  }
+}
